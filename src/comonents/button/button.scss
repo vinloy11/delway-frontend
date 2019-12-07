@@ -1,0 +1,22 @@
+.button {
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  border: none;
+  vertical-align: middle;
+  &:hover {
+    opacity: 0.8;
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}
+
+.choose-action-wrapper {
+  display: none;
+}
+
+
+
+

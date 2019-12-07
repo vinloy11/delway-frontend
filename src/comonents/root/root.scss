@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+$light-gray: #F4F4F4;
+$gray: #F2F2F2;
+$dark-font-color:  #475067;
+$light-color-font: #FFFFFF;
+$blue: #1A213F;
+$dark-blue: #141931;
+$light-blue: #6DA8FF;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  background: $light-gray;
+  margin: 0 auto;
+  max-width: 1281px;
+  height: 100%;
+}
+
+.main {
+  position: relative;
+  display: flex;
+
+}

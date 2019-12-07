@@ -1,0 +1,23 @@
+.gallery {
+  width: 337px;
+  min-width: 337px;
+  background: #1A213F;
+  height: 100vh;
+  min-height: 720px;
+  color: #FFFFFF;
+  .title {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 18px;
+    .line {
+      margin-left: 18px;
+      vertical-align: middle;
+      display: inline-block;
+      width: 81px;
+      height: 2px;
+      background-color: #ffffff;
+
+    }
+  }
+}
+
