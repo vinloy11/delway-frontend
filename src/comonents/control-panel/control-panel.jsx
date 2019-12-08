@@ -7,18 +7,28 @@ import Input from "../input/input";
 class ControlPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props
-        // this.props.addPhoto(44);
+        this.props = props;
+        this.state = {
+            message: ''
+        };
     }
+
+    changeMessage = message => {
+          this.setState({message: message})
+    };
+
+    clearMessage = () => {
+
+    };
+
     render() {
-        console.log(this.props.gallery);
 
         return (
             <div className='control-panel'>
                 <Button gallery={this.props.addPhoto} buttonType="photo" />
-                <Input />
+                <Input  addMessage={this.props.addMessage} changeMessage={this.changeMessage}/>
                 <Button buttonType="stream" />
-                <Button buttonType="chat" />
+                <Button buttonType="chat" message={this.state.message} addMessage={this.props.addMessage}/>
             </div>
         )
     }

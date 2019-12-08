@@ -2,9 +2,17 @@
   width: 337px;
   min-width: 337px;
   background: #1A213F;
-  height: 100vh;
-  min-height: 720px;
+  height: 100%;
+  //min-height: 720px;
   color: #FFFFFF;
+  .all-photos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    max-height: 680px;
+    overflow: auto;
+  }
   .title {
     text-align: center;
     margin-top: 18px;

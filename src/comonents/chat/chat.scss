@@ -2,7 +2,11 @@
   width: 293px;
   min-width: 293px;
   background: #FFFFFF;
-  height: 100vh;
-  min-height: 720px;
+  height: 100%;
   box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100vh;
+  overflow-y: scroll;
 }

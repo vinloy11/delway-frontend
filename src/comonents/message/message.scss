@@ -1,0 +1,19 @@
+.message {
+  margin-top: 18px;
+  width: 270px;
+  //min-height: 65px;
+  background-color: #F2F2F2;
+  border-radius: 6px;
+  padding: 12px;
+  height: auto;
+  max-height: 200px;
+  .date {
+    color: #C4C4C4;
+  }
+  .content {
+    overflow: hidden;
+    max-height: 150px;
+    margin-top: 8px;
+    color: #475067;
+  }
+}
