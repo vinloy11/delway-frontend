@@ -12,16 +12,15 @@ const Input = (props) => {
     const pressEnter = (event) => {
         if (event.key === 'Enter') {
             props.addMessage(event.target.value);
-            clearInput(event.target);
+            props.clearInput();
+        
         }
     };
 
-    const clearInput = target => {
-        target.value = ''
-    };
+
 
     return (
-        <input onKeyPress={pressEnter}  onChange={changeInput} className='input'></input>
+        <input onKeyPress={pressEnter} value={props.value} onChange={changeInput} className='input'></input>
     )
 }
 

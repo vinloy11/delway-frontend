@@ -15,6 +15,7 @@ class Button extends React.Component {
 
     addMessage= () => {
         this.props.addMessage(this.props.message)
+        this.props.clearInput()
     }
 
     render() {

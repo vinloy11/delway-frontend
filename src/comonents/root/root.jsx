@@ -60,8 +60,8 @@ class Root extends React.Component {
     addPhoto = photo => {
       this.setState(prevState => ({
           gallery: [
-              ...prevState.gallery,
-              {  src: 'http://localhost:3000/logo192.png', id: photo, likes: 32}
+              {  src: 'http://localhost:3000/logo192.png', id: photo, likes: 32},
+              ...prevState.gallery
           ]
       }))
     };

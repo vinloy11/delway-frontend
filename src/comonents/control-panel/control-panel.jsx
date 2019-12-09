@@ -17,18 +17,17 @@ class ControlPanel extends React.Component {
           this.setState({message: message})
     };
 
-    clearMessage = () => {
-
-    };
+    clearInput = () => {
+        this.setState({message: ''})
+    }
 
     render() {
-
         return (
             <div className='control-panel'>
                 <Button gallery={this.props.addPhoto} buttonType="photo" />
-                <Input  addMessage={this.props.addMessage} changeMessage={this.changeMessage}/>
+                <Input clearInput={this.clearInput} value={this.state.message}  addMessage={this.props.addMessage} changeMessage={this.changeMessage}/>
                 <Button buttonType="stream" />
-                <Button buttonType="chat" message={this.state.message} addMessage={this.props.addMessage}/>
+                <Button clearInput={this.clearInput} buttonType="chat" message={this.state.message} addMessage={this.props.addMessage}/>
             </div>
         )
     }
