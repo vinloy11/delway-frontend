@@ -16,6 +16,10 @@ class Button extends React.Component {
     addMessage= () => {
         this.props.addMessage(this.props.message)
         this.props.clearInput()
+    };
+
+    startStream = () => {
+        this.props.startStream()
     }
 
     render() {
@@ -36,7 +40,7 @@ class Button extends React.Component {
                 );
             case 'stream':
                 return (
-                    <button className='button'>С</button>
+                    <button className='button stream' onClick={this.startStream}>С</button>
                 );
             case 'addedPhoto':
                 return (

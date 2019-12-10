@@ -18,7 +18,6 @@ const Input = (props) => {
     };
 
 
-
     return (
         <input onKeyPress={pressEnter} value={props.value} onChange={changeInput} className='input'></input>
     )

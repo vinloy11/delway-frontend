@@ -26,7 +26,6 @@ class ControlPanel extends React.Component {
             <div className='control-panel'>
                 <Button gallery={this.props.addPhoto} buttonType="photo" />
                 <Input clearInput={this.clearInput} value={this.state.message}  addMessage={this.props.addMessage} changeMessage={this.changeMessage}/>
-                <Button buttonType="stream" />
                 <Button clearInput={this.clearInput} buttonType="chat" message={this.state.message} addMessage={this.props.addMessage}/>
             </div>
         )

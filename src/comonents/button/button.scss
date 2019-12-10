@@ -11,6 +11,12 @@
       opacity: 0.5;
     }
   }
+  &.stream {
+    position: absolute;
+    bottom: 13px;
+    z-index: 1;
+    left: 780px;
+  }
 }
 
 .choose-action-wrapper {

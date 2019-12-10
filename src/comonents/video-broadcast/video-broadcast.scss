@@ -3,5 +3,26 @@
   min-width: 650px;
   background: #F4F4F4;
   height: 100%;
+
   //min-height: 720px;
+  .page-title {
+    margin-left: 5%;
+    width: 90%;
+    border-bottom: 1px solid rgba(127, 143, 164, 0.5);
+    margin-top: 16px;
+    text-align: center;
+    padding-bottom: 15px;
+    .application-name {
+      font-size: 24px;
+      font-weight: 600;
+      span {
+        &:first-child {
+          color: #455CC7;
+        }
+        &:last-child {
+          color: #FEAC02;
+        }
+      }
+    }
+  }
 }

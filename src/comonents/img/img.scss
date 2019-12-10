@@ -1,0 +1,17 @@
+.img-wrapper {
+margin-top: 64px;
+  .fake-img {
+    width: 650px;
+    height: 420px;
+    position: absolute;
+    z-index: 0;
+  }
+  .img {
+    position: absolute;
+    z-index: 2;
+    width: 640px;
+    height: 420px;
+  }
+
+}
+
