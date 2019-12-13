@@ -2,7 +2,8 @@ import React from "react";
 import './video-broadcast.scss'
 import Img from "../img/img";
 import Button from "../button/button";
-import socketIOClient  from 'socket.io-client'
+import socketIOClient from 'socket.io-client'
+import Webcam from "react-webcam";
 
 class VideoBroadcast extends React.Component {
     constructor(props) {
@@ -11,53 +12,64 @@ class VideoBroadcast extends React.Component {
         this.intervalID = 0;
         this.state = {
             mainUser: 0,
-            stopStreamButton: false,
-            startStreamButton: true,
-            disabledStartStreamButton: false,
+            startStreamButton: 'not disabled',
+            disabledButton: false,
+            stream: '',
             endpoint: "http://localhost:3001"
-           }
+        };
         this.socket = socketIOClient(this.state.endpoint);
     };
-    videoRef  = React.createRef();
-    startStream = () => {
-        navigator.mediaDevices.getUserMedia({
-            video: {
-                width: 426,
-                height: 240
-            }
-        }).then((stream) => this.videoRef.current.srcObject = stream);
-        this.setState({
-            mainUser: 1,
-            startStreamButton: false,
-            stopStreamButton: true,
-        })
-       this.sendStream();
+
+
+    componentDidMount() {
+        this.socket.emit("check state");
+        this.socket.on("start stream", data => this.startStreamResponse(data) );
+        this.socket.on("check state", data => this.setState({startStreamButton: data}));
+        this.socket.on('stop stream', this.stopStreamResponse);
+
+    }
+
+    startStreamResponse = (data) => {
+        this.setState({stream: data, startStreamButton: 'disabled'})
     };
+
+    stopStreamResponse = () => {
+        this.setState({startStreamButton: 'not disabled', stream: ''})
+    };
+
+    startStream = () => {
+        this.setState({mainUser: 1, disabledButton: true});
+        this.sendStream();
+    };
+
 
     sendStream = () => {
         this.intervalID = setInterval(() => {
-            let video = this.videoRef.current;
-            this.socket.emit('start stream', this.getFrame(video));
-        }, 50);
-    }
-    getFrame = (video) => {
-        let canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        let dataVideo = canvas.toDataURL('video/mp4');
-        return dataVideo;
+            this.socket.emit('start stream', this.webcam.getScreenshot());
+        }, 10);
+    };
+
+    stopStream = () => {
+        clearInterval(this.intervalID);
+        this.setState({mainUser: 0, disabledButton: false});
+        this.socket.emit('stop stream');
     };
 
     render() {
+        window.addEventListener('beforeunload', this.stopStream);
         return (
             <div className='video-broadcast'>
                 <section className='page-title'>
                     <div className='application-name'><span>Del</span><span>Way</span></div>
                     <p>Is it live, or is it DelWay?</p>
                 </section>
-                {!this.mainUser ? <video ref={this.videoRef} src=""></video> : <Img stream={this.props.stream}/>}
-                <Button startStream={this.startStream} buttonType="stream" />
+
+                {this.state.mainUser ? <Webcam ref={e => this.webcam = e}/> : <Img stream={this.state.stream}/>}
+                <Button startStreamButton={this.state.startStreamButton}
+                        disabledButton={this.state.disabledButton}
+                        startStream={this.startStream}
+                        stopStream={this.stopStream}
+                        buttonType="stream"/>
             </div>
         )
     }

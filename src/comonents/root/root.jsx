@@ -28,8 +28,6 @@ const gallery = [
 const messages = [
 ];
 
-let testVideo = document.querySelector('video');
-
 class Root extends React.Component {
     constructor(props) {
         super(props);
@@ -37,7 +35,6 @@ class Root extends React.Component {
             gallery:gallery,
             debil: [{0: 'lox', 2: 'pidr'}],
             response: messages,
-            stream: '',
             endpoint: "http://localhost:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
@@ -50,8 +47,7 @@ class Root extends React.Component {
                 ...prevState.response
             ]
         })));
-        this.socket.on("start stream", data => this.setState({stream: data}))
-        this.socket.on("stop stream", data => this.setState({stream: ''}))
+
     }
 
 
@@ -88,7 +84,7 @@ class Root extends React.Component {
         return (
             <div className="main">
                 <Gallery gallery={this.state.gallery} addPhoto={this.addPhoto}/>
-                <VideoBroadcast stream={this.state.stream} />
+                <VideoBroadcast />
                 <Chat message={this.state.response} />
                 <ControlPanel  gallery={this.state.gallery} addPhoto={this.addPhoto} addMessage={this.addMessage} />
             </div>

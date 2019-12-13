@@ -13,14 +13,18 @@ class Button extends React.Component {
         this.props.gallery(Math.random())
     };
 
-    addMessage= () => {
-        this.props.addMessage(this.props.message)
+    addMessage = () => {
+        this.props.addMessage(this.props.message);
         this.props.clearInput()
     };
 
     startStream = () => {
         this.props.startStream()
-    }
+    };
+
+    stopStream = () => {
+        this.props.stopStream()
+    };
 
     render() {
         switch (this.props.buttonType) {
@@ -39,9 +43,15 @@ class Button extends React.Component {
                     </>
                 );
             case 'stream':
-                return (
-                    <button className='button stream' onClick={this.startStream}>С</button>
-                );
+                if (!this.props.disabledButton) {
+                    return (
+                        <button className='button stream'
+                                disabled={this.props.startStreamButton === 'disabled' ? 'disabled' : ''}
+                                onClick={this.props.startStreamButton === 'disabled' ?  ()=>{} : this.startStream}>С</button>
+                    );
+                } else {
+                    return <button onClick={this.stopStream} className='button stream'>s</button>
+                }
             case 'addedPhoto':
                 return (
                     <button className="button">ap</button>

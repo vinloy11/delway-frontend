@@ -9,6 +9,10 @@
     opacity: 0.8;
     &:active {
       opacity: 0.5;
+      &:disabled {
+        cursor: default;
+        opacity: 1;
+      }
     }
   }
   &.stream {
@@ -17,9 +21,15 @@
     z-index: 1;
     left: 780px;
   }
+  &:disabled {
+    cursor: default;
+    opacity: 1;
+    background-color: gray;
+  }
 }
 
 .choose-action-wrapper {
+  cursor: default;
   display: none;
 }
 
