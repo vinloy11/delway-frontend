@@ -15,7 +15,7 @@ class VideoBroadcast extends React.Component {
             startStreamButton: 'not disabled',
             disabledButton: false,
             stream: '',
-            endpoint: "http://localhost:3001"
+            endpoint: "http://192.168.0.15:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
     };

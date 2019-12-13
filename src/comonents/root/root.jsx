@@ -9,17 +9,17 @@ import ControlPanel from "../control-panel/control-panel";
 
 const gallery = [
     {
-        src: 'http://localhost:3000/logo192.png',
+        src: 'http://192.168.0.15:3000/logo192.png',
         id: 21,
         likes: 41
     },
     {
-        src: 'http://localhost:3000/logo192.png',
+        src: 'http://192.168.0.15:3000/logo192.png',
         id: 3213,
         likes: 1
     },
     {
-        src: 'http://localhost:3000/logo192.png',
+        src: 'http://192.168.0.15:3000/logo192.png',
         id: 1,
         likes: 32
     }
@@ -35,7 +35,7 @@ class Root extends React.Component {
             gallery:gallery,
             debil: [{0: 'lox', 2: 'pidr'}],
             response: messages,
-            endpoint: "http://localhost:3001"
+            endpoint: "http://192.168.0.15:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
     }
