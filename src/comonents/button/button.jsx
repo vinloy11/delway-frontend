@@ -32,16 +32,6 @@ class Button extends React.Component {
                 return (
                     <button onClick={this.addMessage} className='button'>ч</button>
                 );
-            case 'photo' :
-                return (
-                    <>
-                        <button onClick={this.addPhoto} className='button'>ф</button>
-                        <div className="choose-action-wrapper">
-                            <Button buttonType="addedPhoto"/>
-                            <Button buttonType="screenShot"/>
-                        </div>
-                    </>
-                );
             case 'stream':
                 if (!this.props.disabledButton) {
                     return (
@@ -54,7 +44,7 @@ class Button extends React.Component {
                 }
             case 'addedPhoto':
                 return (
-                    <button className="button">ap</button>
+                    <button onClick={this.addPhoto} className="button">ap</button>
                 );
             case 'screenShot' :
                 return (

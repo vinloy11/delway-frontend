@@ -4,6 +4,7 @@ import Img from "../img/img";
 import Button from "../button/button";
 import socketIOClient from 'socket.io-client'
 import Webcam from "react-webcam";
+import Locale from "../../locale";
 
 class VideoBroadcast extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class VideoBroadcast extends React.Component {
             startStreamButton: 'not disabled',
             disabledButton: false,
             stream: '',
-            endpoint: "http://192.168.0.15:3001"
+            endpoint: "http://127.0.0.1:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
     };
@@ -34,6 +35,7 @@ class VideoBroadcast extends React.Component {
     };
 
     stopStreamResponse = () => {
+        console.log('lol')
         this.setState({startStreamButton: 'not disabled', stream: ''})
     };
 
@@ -53,15 +55,17 @@ class VideoBroadcast extends React.Component {
         clearInterval(this.intervalID);
         this.setState({mainUser: 0, disabledButton: false});
         this.socket.emit('stop stream');
+        window.removeEventListener('beforeunload', this.stopStream);
     };
 
     render() {
+        const locale = Locale.videoBroadcast;
         window.addEventListener('beforeunload', this.stopStream);
         return (
             <div className='video-broadcast'>
                 <section className='page-title'>
-                    <div className='application-name'><span>Del</span><span>Way</span></div>
-                    <p>Is it live, or is it DelWay?</p>
+        <div className='application-name'><span>{locale.firstName}</span><span>{locale.secondName}</span></div>
+                    <p>{locale.slogan}</p>
                 </section>
 
                 {this.state.mainUser ? <Webcam ref={e => this.webcam = e}/> : <Img stream={this.state.stream}/>}
