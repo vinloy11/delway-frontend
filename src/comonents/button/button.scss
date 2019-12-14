@@ -28,6 +28,23 @@
   }
 }
 
+.input-file-wrapper {
+  display: inline-block;
+  input {
+    display: none;
+  }
+  label {
+    display: inline-block;
+    background-color: red;
+    cursor: pointer;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    border: none;
+    //vertical-align: middle;
+  }
+}
+
 .choose-action-wrapper {
   cursor: default;
   display: none;

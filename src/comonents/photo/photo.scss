@@ -2,13 +2,15 @@
   margin-top: 12px;
   border-radius: 6px;
   width: 240px;
-  height: 220px;
+  height: 240px;
   min-height: 220px;
   text-align: center;
   background-color: #141931;
-  .photo img {
-    max-height: 240px;
-    max-width: 240px;
+  overflow: hidden;
+  display: flex;
+  img {
+    height: 100%;
+    width: 100%;
   }
   .rating {
     width: 100%;

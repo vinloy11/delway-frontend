@@ -5,51 +5,49 @@ import './root.scss'
 import Gallery from "../gallery/gallery";
 import VideoBroadcast from "../video-broadcast/video-broadcast";
 import ControlPanel from "../control-panel/control-panel";
+import delWayRequest from "../../api/delway";
 
 
-const gallery = [
-    {
-        src: 'http://127.0.0.1:3000/logo192.png',
-        id: 21,
-        likes: 41
-    },
-    {
-        src: 'http://127.0.0.1:3000/logo192.png',
-        id: 3213,
-        likes: 1
-    },
-    {
-        src: 'http://127.0.0.1:3000/logo192.png',
-        id: 1,
-        likes: 32
-    }
-];
+const gallery = [];
 
-const messages = [
-];
+const messages = [];
 
 class Root extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             gallery:gallery,
+            screen: '',
             debil: [{0: 'lox', 2: 'pidr'}],
             response: messages,
+            loading: false,
             endpoint: "http://127.0.0.1:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
     }
 
     componentDidMount() {
+        this.getGallery();
         this.socket.on("chat message", data => this.setState(prevState => ({
             response: [
                 { content: data, date: this.getCurrentDate() },
                 ...prevState.response
             ]
         })));
+        this.updateGallery();
 
     }
 
+    getGallery = () => {
+        delWayRequest.get('/gallery').then(response => {
+            const gallery = response.data.data;
+            this.setState({gallery})
+        });
+    };
+
+    updateGallery = () => {
+        setInterval(() => {this.getGallery()}, 1000 * 10 )
+    };
 
     getCurrentDate() {
         let date = new Date();
@@ -60,12 +58,14 @@ class Root extends React.Component {
     }
 
     addPhoto = photo => {
-      this.setState(prevState => ({
-          gallery: [
-              {  src: 'http://localhost:3000/logo192.png', id: photo, likes: 32},
-              ...prevState.gallery
-          ]
-      }))
+        const formData = new FormData();
+        formData.append("avatar", photo);
+        delWayRequest.post('/gallery', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(() => this.getGallery());
+
     };
 
 
@@ -76,17 +76,22 @@ class Root extends React.Component {
         } else return true;
     };
 
-    // removePhoto = () => {
-    //
-    // }
+    toggleScreen = () => {
+      this.setState({screen: true});
+    };
+
+    screenShot = (base64) => {
+        this.setState({screen: false});
+        delWayRequest.post('/gallery/screenshot', {base64}).then(() => this.getGallery());
+    };
 
     render() {
         return (
             <div className="main">
                 <Gallery gallery={this.state.gallery} addPhoto={this.addPhoto}/>
-                <VideoBroadcast />
+                <VideoBroadcast screenShot={this.screenShot} sateScreen={this.state.screen} />
                 <Chat message={this.state.response} />
-                <ControlPanel  gallery={this.state.gallery} addPhoto={this.addPhoto} addMessage={this.addMessage} />
+                <ControlPanel toggleScreen={this.toggleScreen}  gallery={this.state.gallery} addPhoto={this.addPhoto} addMessage={this.addMessage} />
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React from "react";
-
 import './button.scss'
 
 class Button extends React.Component {
@@ -9,8 +8,8 @@ class Button extends React.Component {
 
     }
 
-    addPhoto = () => {
-        this.props.gallery(Math.random())
+    addPhoto = (e) => {
+        this.props.gallery(e.target.files[0])
     };
 
     addMessage = () => {
@@ -24,6 +23,10 @@ class Button extends React.Component {
 
     stopStream = () => {
         this.props.stopStream()
+    };
+
+    screenShot = () => {
+        this.props.toggleScreen()
     };
 
     render() {
@@ -44,11 +47,14 @@ class Button extends React.Component {
                 }
             case 'addedPhoto':
                 return (
-                    <button onClick={this.addPhoto} className="button">ap</button>
+                    <div className="input-file-wrapper">
+                        <label htmlFor="file-upload">AP</label>
+                        <input type="file" id="file-upload" onChange={this.addPhoto}  className="button" />
+                    </div>
                 );
             case 'screenShot' :
                 return (
-                    <button className="button">as</button>
+                    <button onClick={this.screenShot} className="button">as</button>
                 );
             default :
                 return;

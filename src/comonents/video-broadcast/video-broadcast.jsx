@@ -35,7 +35,7 @@ class VideoBroadcast extends React.Component {
     };
 
     stopStreamResponse = () => {
-        console.log('lol')
+        console.log('lol');
         this.setState({startStreamButton: 'not disabled', stream: ''})
     };
 
@@ -58,13 +58,28 @@ class VideoBroadcast extends React.Component {
         window.removeEventListener('beforeunload', this.stopStream);
     };
 
+    screenShot = () => {
+        console.log(this.state.stream)
+        if (this.state.stream) {
+            this.props.screenShot(this.state.stream)
+        } else if (this.webcam){
+            this.props.screenShot(this.webcam.getScreenshot())
+        } else {
+            console.log('lol')
+        }
+    };
+
     render() {
+
         const locale = Locale.videoBroadcast;
         window.addEventListener('beforeunload', this.stopStream);
+        if (this.props.sateScreen) {
+            this.screenShot();
+        }
         return (
             <div className='video-broadcast'>
                 <section className='page-title'>
-        <div className='application-name'><span>{locale.firstName}</span><span>{locale.secondName}</span></div>
+            <div className='application-name'><span>{locale.firstName}</span><span>{locale.secondName}</span></div>
                     <p>{locale.slogan}</p>
                 </section>
 
