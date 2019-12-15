@@ -5,6 +5,7 @@ import Button from "../button/button";
 import socketIOClient from 'socket.io-client'
 import Webcam from "react-webcam";
 import Locale from "../../locale";
+import Payment from "../payment/payment";
 
 class VideoBroadcast extends React.Component {
     constructor(props) {
@@ -35,15 +36,14 @@ class VideoBroadcast extends React.Component {
     };
 
     stopStreamResponse = () => {
-        console.log('lol');
         this.setState({startStreamButton: 'not disabled', stream: ''})
     };
 
     startStream = () => {
+        this.props.changePaymentNumber();
         this.setState({mainUser: 1, disabledButton: true});
         this.sendStream();
     };
-
 
     sendStream = () => {
         this.intervalID = setInterval(() => {
@@ -59,14 +59,15 @@ class VideoBroadcast extends React.Component {
     };
 
     screenShot = () => {
-        console.log(this.state.stream)
-        if (this.state.stream) {
-            this.props.screenShot(this.state.stream)
-        } else if (this.webcam){
-            this.props.screenShot(this.webcam.getScreenshot())
-        } else {
-            console.log('lol')
-        }
+        setTimeout(() => {
+            if (this.state.stream) {
+                this.props.screenShot(this.state.stream)
+            } else if (this.webcam){
+                this.props.screenShot(this.webcam.getScreenshot())
+            } else {
+
+            }
+        }, 500)
     };
 
     render() {
@@ -80,7 +81,9 @@ class VideoBroadcast extends React.Component {
             <div className='video-broadcast'>
                 <section className='page-title'>
             <div className='application-name'><span>{locale.firstName}</span><span>{locale.secondName}</span></div>
-                    <p>{locale.slogan}</p>
+                    <p>{locale.slogan}</p> {this.props.paymentNumber ?
+                    <Payment paymentNumber={this.props.paymentNumber}/> :
+                    ''}
                 </section>
 
                 {this.state.mainUser ? <Webcam ref={e => this.webcam = e}/> : <Img stream={this.state.stream}/>}

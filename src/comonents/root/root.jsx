@@ -21,6 +21,8 @@ class Root extends React.Component {
             debil: [{0: 'lox', 2: 'pidr'}],
             response: messages,
             loading: false,
+            myAccount: '',
+            hisAccount: '',
             endpoint: "http://127.0.0.1:3001"
         };
         this.socket = socketIOClient(this.state.endpoint);
@@ -34,8 +36,8 @@ class Root extends React.Component {
                 ...prevState.response
             ]
         })));
+        this.socket.on("change number", number => this.setState({hisAccount: number}))
         this.updateGallery();
-
     }
 
     getGallery = () => {
@@ -76,6 +78,18 @@ class Root extends React.Component {
         } else return true;
     };
 
+    changePaymentNumber = () => {
+        this.socket.emit('change number', this.state.myAccount);
+    };
+
+    changeAccountNumber = number => {
+        number = parseInt(number.trim());
+        if (number){
+            this.setState({myAccount: number})
+        }
+
+    };
+
     toggleScreen = () => {
       this.setState({screen: true});
     };
@@ -89,9 +103,16 @@ class Root extends React.Component {
         return (
             <div className="main">
                 <Gallery gallery={this.state.gallery} addPhoto={this.addPhoto}/>
-                <VideoBroadcast screenShot={this.screenShot} sateScreen={this.state.screen} />
+                <VideoBroadcast paymentNumber={this.state.hisAccount}
+                                changePaymentNumber={this.changePaymentNumber}
+                                screenShot={this.screenShot}
+                                sateScreen={this.state.screen}/>
                 <Chat message={this.state.response} />
-                <ControlPanel toggleScreen={this.toggleScreen}  gallery={this.state.gallery} addPhoto={this.addPhoto} addMessage={this.addMessage} />
+                <ControlPanel changeAccountNumber={this.changeAccountNumber}
+                              toggleScreen={this.toggleScreen}
+                              gallery={this.state.gallery}
+                              addPhoto={this.addPhoto}
+                              addMessage={this.addMessage}/>
             </div>
         )
     }

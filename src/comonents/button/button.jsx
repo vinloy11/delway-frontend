@@ -29,32 +29,39 @@ class Button extends React.Component {
         this.props.toggleScreen()
     };
 
+    changeAccountNumber = () => {
+        this.props.changeAccountNumber(this.props.number);
+        this.props.clearInput()
+    };
+
     render() {
         switch (this.props.buttonType) {
             case 'chat' :
                 return (
-                    <button onClick={this.addMessage} className='button'>ч</button>
+                    <button onClick={this.addMessage} className='button chat-button'></button>
                 );
             case 'stream':
                 if (!this.props.disabledButton) {
                     return (
                         <button className='button stream'
                                 disabled={this.props.startStreamButton === 'disabled' ? 'disabled' : ''}
-                                onClick={this.props.startStreamButton === 'disabled' ?  ()=>{} : this.startStream}>С</button>
+                                onClick={this.props.startStreamButton === 'disabled' ?  ()=>{} : this.startStream}></button>
                     );
                 } else {
-                    return <button onClick={this.stopStream} className='button stream'>s</button>
+                    return <button onClick={this.stopStream} className='button stop stream'></button>
                 }
             case 'addedPhoto':
                 return (
                     <div className="input-file-wrapper">
-                        <label htmlFor="file-upload">AP</label>
+                        <label htmlFor="file-upload"></label>
                         <input type="file" id="file-upload" onChange={this.addPhoto}  className="button" />
                     </div>
                 );
+            case 'yandex':
+                return <button onClick={this.changeAccountNumber} className='button yandex'>Y</button>
             case 'screenShot' :
                 return (
-                    <button onClick={this.screenShot} className="button">as</button>
+                    <button onClick={this.screenShot} className="button screenshot"></button>
                 );
             default :
                 return;

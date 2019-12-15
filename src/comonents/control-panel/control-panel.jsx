@@ -24,6 +24,7 @@ class ControlPanel extends React.Component {
     render() {
         return (
             <div className='control-panel'>
+                <Button number={this.state.message} clearInput={this.clearInput} changeAccountNumber={this.props.changeAccountNumber} buttonType="yandex"/>
                 <Button gallery={this.props.addPhoto} buttonType="addedPhoto" />
                 <Button toggleScreen={this.props.toggleScreen} buttonType="screenShot" />
                 <Input clearInput={this.clearInput} value={this.state.message}  addMessage={this.props.addMessage} changeMessage={this.changeMessage}/>

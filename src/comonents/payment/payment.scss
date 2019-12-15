@@ -1,0 +1,29 @@
+.payment-form {
+  display: block;
+  text-align: start;
+  position: absolute;
+  top: 20px;
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="submit"] {
+    cursor: pointer;
+    height: 40px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border: 1px solid #1A213F;
+    border-left: none;
+    padding: 0 5px;
+    text-align: center;
+  }
+  input[type="text"] {
+    padding: 0 5px;
+    text-align: center;
+    width: 55px;
+    height: 40px;
+    border: 1px solid #1A213F;
+    border-right: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+}

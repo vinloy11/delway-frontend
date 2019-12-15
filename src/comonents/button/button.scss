@@ -1,3 +1,4 @@
+
 .button {
   cursor: pointer;
   height: 26px;
@@ -5,6 +6,8 @@
   border-radius: 50%;
   border: none;
   vertical-align: middle;
+  margin-right: 8px;
+  transition: border-radius 0.5s;
   &:hover {
     opacity: 0.8;
     &:active {
@@ -16,32 +19,72 @@
     }
   }
   &.stream {
+    background-color: red;
     position: absolute;
     bottom: 13px;
     z-index: 1;
-    left: 780px;
+    left: 796px;
+    &:disabled {
+      background-color: gray;
+    }
+    &.stop {
+      height: 26px;
+      width: 26px;
+      border-radius: 10%;
+      transition: border-radius 0.5s;
+    }
   }
   &:disabled {
     cursor: default;
     opacity: 1;
     background-color: gray;
   }
+  &.yandex {
+    font-size: 18px;
+    color: red;
+  }
+
+  &.chat-button {
+    background-image: url("./icons/send-message.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 2px 4px;
+    margin-left: 8px;
+  }
+  &.screenshot {
+    background-image: url("./icons/screenshot.svg");
+    background-size: 27px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+  }
+
 }
 
 .input-file-wrapper {
+  margin-right: 8px;
   display: inline-block;
   input {
     display: none;
   }
   label {
+    background-image: url("./icons/image.svg");
+    background-size: 18px;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
     display: inline-block;
-    background-color: red;
     cursor: pointer;
     height: 26px;
     width: 26px;
     border-radius: 50%;
     border: none;
     //vertical-align: middle;
+    &:hover {
+      opacity: 0.8;
+      &:active {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
