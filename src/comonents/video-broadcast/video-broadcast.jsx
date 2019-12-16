@@ -10,7 +10,6 @@ import Payment from "../payment/payment";
 class VideoBroadcast extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props;
         this.intervalID = 0;
         this.state = {
             mainUser: 0,
@@ -29,10 +28,11 @@ class VideoBroadcast extends React.Component {
         this.socket.on("check state", data => this.setState({startStreamButton: data}));
         this.socket.on('stop stream', this.stopStreamResponse);
 
+        window.addEventListener('beforeunload', this.stopStream);
     }
 
     startStreamResponse = (data) => {
-        this.setState({stream: data, startStreamButton: 'disabled'})
+        this.setState({ stream: data, startStreamButton: 'disabled' })
     };
 
     stopStreamResponse = () => {
@@ -59,33 +59,34 @@ class VideoBroadcast extends React.Component {
     };
 
     screenShot = () => {
-        setTimeout(() => {
-            if (this.state.stream) {
-                this.props.screenShot(this.state.stream)
-            } else if (this.webcam){
-                this.props.screenShot(this.webcam.getScreenshot())
-            } else {
+        const { screenShot } = this.props;
 
-            }
-        }, 500)
+        if (this.state.stream) {
+            screenShot(this.state.stream)
+        } else if (this.webcam){
+            screenShot(this.webcam.getScreenshot())
+        } else {
+
+        }
     };
 
-    render() {
-
-        const locale = Locale.videoBroadcast;
-        window.addEventListener('beforeunload', this.stopStream);
+    componentDidUpdate() {
         if (this.props.sateScreen) {
             this.screenShot();
         }
+    }
+
+    render() {
+        const locale = Locale.videoBroadcast;
+
         return (
             <div className='video-broadcast'>
                 <section className='page-title'>
-            <div className='application-name'><span>{locale.firstName}</span><span>{locale.secondName}</span></div>
+                    <div className='application-name' dangerouslySetInnerHTML={{__html: locale.name}}/>
                     <p>{locale.slogan}</p> {this.props.paymentNumber ?
                     <Payment paymentNumber={this.props.paymentNumber}/> :
                     ''}
                 </section>
-
                 {this.state.mainUser ? <Webcam ref={e => this.webcam = e}/> : <Img stream={this.state.stream}/>}
                 <Button startStreamButton={this.state.startStreamButton}
                         disabledButton={this.state.disabledButton}

@@ -4,7 +4,6 @@ import './button.scss'
 class Button extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props;
 
     }
 
@@ -13,8 +12,9 @@ class Button extends React.Component {
     };
 
     addMessage = () => {
-        this.props.addMessage(this.props.message);
-        this.props.clearInput()
+        const { addMessage, message, clearInput } = this.props;
+        addMessage(message);
+        clearInput()
     };
 
     startStream = () => {
@@ -30,8 +30,9 @@ class Button extends React.Component {
     };
 
     changeAccountNumber = () => {
-        this.props.changeAccountNumber(this.props.number);
-        this.props.clearInput()
+        const { changeAccountNumber, number, clearInput } = this.props
+        changeAccountNumber(number);
+        clearInput()
     };
 
     render() {

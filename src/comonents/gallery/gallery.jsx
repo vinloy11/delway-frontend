@@ -7,7 +7,6 @@ import Photo from "../photo/photo";
 class Gallery extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props;
         this.state = {
             isScrolling: false,
             clientY: 0,

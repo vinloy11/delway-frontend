@@ -1,11 +1,9 @@
-
 export default {
     gallery: {
         galleryTitle: 'Галерея'
     },
     videoBroadcast: {
-        firstName: 'Del',
-        secondName: 'Way',
+        name: '<span>Del</span><span>Way</span>',
         slogan: 'Is it live, or is it DelWay?'
     }
 }

@@ -7,6 +7,7 @@ import VideoBroadcast from "../video-broadcast/video-broadcast";
 import ControlPanel from "../control-panel/control-panel";
 import delWayRequest from "../../api/delway";
 
+const END_POINT = 'http://127.0.0.1:3001'
 
 const gallery = [];
 
@@ -16,16 +17,14 @@ class Root extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            gallery:gallery,
+            gallery,
             screen: '',
-            debil: [{0: 'lox', 2: 'pidr'}],
             response: messages,
             loading: false,
             myAccount: '',
-            hisAccount: '',
-            endpoint: "http://127.0.0.1:3001"
+            hisAccount: ''
         };
-        this.socket = socketIOClient(this.state.endpoint);
+        this.socket = socketIOClient(END_POINT);
     }
 
     componentDidMount() {
@@ -52,10 +51,10 @@ class Root extends React.Component {
     };
 
     getCurrentDate() {
-        let date = new Date();
-        let hour = date.getHours();
-        let minutes = date.getMinutes();
-        let seconds = date.getSeconds();
+        const date = new Date();
+        const hour = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
         return hour+":"+minutes+":"+seconds;
     }
 
@@ -72,10 +71,13 @@ class Root extends React.Component {
 
 
     addMessage = message => {
-        message = message.trim();
-        if (message !== '' && message !== ' ') {
-            this.socket.emit('chat message', message);
-        } else return true;
+        const trimmedMessage = message.trim();
+
+        if (!trimmedMessage || trimmedMessage === ' ') {
+            return;
+        }
+
+        return this.socket.emit('chat message', trimmedMessage);
     };
 
     changePaymentNumber = () => {

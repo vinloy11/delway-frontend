@@ -5,7 +5,6 @@ import Message from "../message/message";
 class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props
     }
 
     render() {
