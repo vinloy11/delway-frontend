@@ -7,6 +7,8 @@ import Webcam from "react-webcam";
 import Locale from "../../locale";
 import Payment from "../payment/payment";
 
+const END_POINT = 'http://127.0.0.1:3001';
+
 class VideoBroadcast extends React.Component {
     constructor(props) {
         super(props);
@@ -15,10 +17,9 @@ class VideoBroadcast extends React.Component {
             mainUser: 0,
             startStreamButton: 'not disabled',
             disabledButton: false,
-            stream: '',
-            endpoint: "http://127.0.0.1:3001"
+            stream: ''
         };
-        this.socket = socketIOClient(this.state.endpoint);
+        this.socket = socketIOClient(END_POINT);
     };
 
 

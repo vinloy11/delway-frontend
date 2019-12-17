@@ -41,7 +41,7 @@ class Gallery extends React.Component {
             <div className="gallery"  onMouseDown={this.onMouseDown}
                  onMouseUp={this.onMouseUp}
                  onMouseMove={this.onMouseMove}>
-                <section className="title">{locale.galleryTitle} <span className="line"></span></section>
+                <section className="title">{locale.galleryTitle} <span className="line"/></section>
                 <div className="all-photos">
                     {this.props.gallery.map((photo) => (
                         <Photo photo={photo} key={photo.id} />

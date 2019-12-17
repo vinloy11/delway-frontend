@@ -1,5 +1,5 @@
 import React from "react";
-import socketIOClient  from 'socket.io-client'
+import socketIOClient from 'socket.io-client'
 import Chat from "../chat/chat";
 import './root.scss'
 import Gallery from "../gallery/gallery";
@@ -7,7 +7,7 @@ import VideoBroadcast from "../video-broadcast/video-broadcast";
 import ControlPanel from "../control-panel/control-panel";
 import delWayRequest from "../../api/delway";
 
-const END_POINT = 'http://127.0.0.1:3001'
+const END_POINT = 'http://127.0.0.1:3001';
 
 const gallery = [];
 
@@ -31,7 +31,7 @@ class Root extends React.Component {
         this.getGallery();
         this.socket.on("chat message", data => this.setState(prevState => ({
             response: [
-                { content: data, date: this.getCurrentDate() },
+                {content: data, date: this.getCurrentDate()},
                 ...prevState.response
             ]
         })));
@@ -47,7 +47,9 @@ class Root extends React.Component {
     };
 
     updateGallery = () => {
-        setInterval(() => {this.getGallery()}, 1000 * 10 )
+        setInterval(() => {
+            this.getGallery()
+        }, 1000 * 10)
     };
 
     getCurrentDate() {
@@ -55,7 +57,7 @@ class Root extends React.Component {
         const hour = date.getHours();
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
-        return hour+":"+minutes+":"+seconds;
+        return hour + ":" + minutes + ":" + seconds;
     }
 
     addPhoto = photo => {
@@ -85,15 +87,17 @@ class Root extends React.Component {
     };
 
     changeAccountNumber = number => {
-        number = parseInt(number.trim());
-        if (number){
-            this.setState({myAccount: number})
+        const parseNumber = parseInt(number.trim());
+        if (!parseNumber) {
+            return;
         }
+
+        this.setState({myAccount: number})
 
     };
 
     toggleScreen = () => {
-      this.setState({screen: true});
+        this.setState({screen: true});
     };
 
     screenShot = (base64) => {
@@ -109,7 +113,7 @@ class Root extends React.Component {
                                 changePaymentNumber={this.changePaymentNumber}
                                 screenShot={this.screenShot}
                                 sateScreen={this.state.screen}/>
-                <Chat message={this.state.response} />
+                <Chat message={this.state.response}/>
                 <ControlPanel changeAccountNumber={this.changeAccountNumber}
                               toggleScreen={this.toggleScreen}
                               gallery={this.state.gallery}

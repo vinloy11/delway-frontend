@@ -1,7 +1,8 @@
 import React from "react";
 
 import './payment.scss'
-
+import Locale from "../../locale";
+const locale = Locale.payment;
 const Payment = (props) => (
     <div>
         <form className="payment-form" method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" target="_blank">
@@ -13,9 +14,8 @@ const Payment = (props) => (
             <input type="hidden" name="targets" value="транзакция"/>
             <input type="text" name="sum" data-type="number" placeholder="1 250"/>
             <input type="hidden" name="comment" value="DelWay"/>
-            {/*<label><input type="radio" name="paymentType" value="PC"/>Яндекс.Деньгами</label>*/}
             <input type="radio" name="paymentType" value="AC" checked/>
-            <input type="submit" value="Перевести"/>
+            <input type="submit" value={locale.transfer}/>
         </form>
     </div>
 )

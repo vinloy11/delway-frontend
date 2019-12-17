@@ -3,10 +3,6 @@ import './chat.scss'
 import Message from "../message/message";
 
 class Chat extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return(
             <div className='chat'>
@@ -16,7 +12,6 @@ class Chat extends React.Component {
             </div>
         )
     }
-
 }
 
 export default Chat;
